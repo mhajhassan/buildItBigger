@@ -1,12 +1,17 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.mbm_soft.androidjokeslibrary.JokeActivity;
+import com.mbm_soft.jokeslib.Joke;
 
 
 public class MainActivity extends AppCompatActivity implements TaskResult {
@@ -41,10 +46,18 @@ public class MainActivity extends AppCompatActivity implements TaskResult {
     }
 
     public void tellJoke(View view) {
-       // Joke joke = new Joke();
-       // Toast.makeText(this, joke.getRandomJoke(), Toast.LENGTH_LONG).show();
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
-        endpointsAsyncTask.execute();
+        //step number 1:
+        // Joke joke = new Joke();
+        // Toast.makeText(this, joke.getRandomJoke(), Toast.LENGTH_LONG).show();
+
+        //step number 2:
+        Joke joke = new Joke();
+        Intent myIntent = new Intent(this, JokeActivity.class);
+        myIntent.putExtra("JOKE_ID",joke.getRandomJoke());
+        startActivity(myIntent);
+
+        //EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
+        //endpointsAsyncTask.execute();
     }
 
 
