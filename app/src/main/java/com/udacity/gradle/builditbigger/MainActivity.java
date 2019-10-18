@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.mbm_soft.jokeslib.Joke;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskResult {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,13 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
        // Joke joke = new Joke();
        // Toast.makeText(this, joke.getRandomJoke(), Toast.LENGTH_LONG).show();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
+        endpointsAsyncTask.execute();
     }
 
 
+    @Override
+    public void onTaskCompleted(String result) {
+        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+    }
 }
