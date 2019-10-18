@@ -51,18 +51,20 @@ public class MainActivity extends AppCompatActivity implements TaskResult {
         // Toast.makeText(this, joke.getRandomJoke(), Toast.LENGTH_LONG).show();
 
         //step number 2:
-        Joke joke = new Joke();
-        Intent myIntent = new Intent(this, JokeActivity.class);
-        myIntent.putExtra("JOKE_ID",joke.getRandomJoke());
-        startActivity(myIntent);
+        //Joke joke = new Joke();
+        //Intent myIntent = new Intent(this, JokeActivity.class);
+        //myIntent.putExtra("JOKE_ID",joke.getRandomJoke());
+        //startActivity(myIntent);
 
-        //EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
-        //endpointsAsyncTask.execute();
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
+        endpointsAsyncTask.execute();
     }
 
 
     @Override
     public void onTaskCompleted(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        Intent myIntent = new Intent(this, JokeActivity.class);
+        myIntent.putExtra("JOKE_ID",result);
+        startActivity(myIntent);
     }
 }
