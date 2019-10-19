@@ -1,33 +1,32 @@
 package com.udacity.gradle.testing;
 
-
-
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
-import com.udacity.gradle.builditbigger.MainActivity;
+import com.udacity.gradle.builditbigger.TaskResult;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public class EndpointsAsyncTaskTest {
-
     @Test
-    public void testVerifyResponseNotNull() throws InterruptedException, ExecutionException, TimeoutException {
-        MainActivity mainActivity = new MainActivity();
-        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(mainActivity);
+    public void testDoInBackground() throws InterruptedException {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+        EndpointsAsyncTask endpointsAsyncTask = (EndpointsAsyncTask) new EndpointsAsyncTask(new TaskResult() {
+            @Override
+            public void onTaskCompleted(String result) {
+                assertNotNull(result);
+                signal.countDown();
+            }
+        });
         endpointsAsyncTask.execute();
-        String result = endpointsAsyncTask.get(10, TimeUnit.SECONDS);
-        assertNotNull(result);
-        assertTrue(result.length() > 0);
+        signal.await(30, TimeUnit.SECONDS);
     }
 }
