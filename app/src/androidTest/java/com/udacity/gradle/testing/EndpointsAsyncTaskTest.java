@@ -19,12 +19,9 @@ public class EndpointsAsyncTaskTest {
     public void testDoInBackground() throws InterruptedException {
 
         final CountDownLatch signal = new CountDownLatch(1);
-        EndpointsAsyncTask endpointsAsyncTask = (EndpointsAsyncTask) new EndpointsAsyncTask(new TaskResult() {
-            @Override
-            public void onTaskCompleted(String result) {
-                assertNotNull(result);
-                signal.countDown();
-            }
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(result -> {
+            assertNotNull(result);
+            signal.countDown();
         });
         endpointsAsyncTask.execute();
         signal.await(30, TimeUnit.SECONDS);

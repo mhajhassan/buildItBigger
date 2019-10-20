@@ -1,4 +1,5 @@
 <resources>
     <string name="instructions">Free version: Press the button for a delicious joke!</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="sample_admob_id">ca-app-pub-3940256099942544~3347511713</string>
 </resources>
