@@ -7,12 +7,13 @@ import android.widget.TextView;
 
 public class JokeActivity extends AppCompatActivity {
 
+    public static final String JOKE_ID = "joke_id";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
         TextView jokeTextView = findViewById(R.id.joke_text);
-        String jokeText = getIntent().getStringExtra("JOKE_ID");
+        String jokeText = getIntent().getStringExtra(JOKE_ID);
         if (jokeText != null) {
             jokeTextView.setText(jokeText);
         } else {

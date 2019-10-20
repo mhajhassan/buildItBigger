@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mbm_soft.androidjokeslibrary.JokeActivity;
-import com.mbm_soft.jokeslib.Joke;
 
 
 public class MainActivity extends AppCompatActivity implements TaskResult {
+
+    public static final String JOKE_ID = "joke_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult {
     @Override
     public void onTaskCompleted(String result) {
         Intent myIntent = new Intent(this, JokeActivity.class);
-        myIntent.putExtra("JOKE_ID",result);
+        myIntent.putExtra(JOKE_ID, result);
         startActivity(myIntent);
     }
 }
